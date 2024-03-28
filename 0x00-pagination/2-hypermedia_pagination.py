@@ -3,7 +3,7 @@
 """
 import csv
 import math
-from typing import List
+from typing import List, Union, Optional
 
 
 def index_range(page: int, page_size: int) -> tuple[int, int]:
@@ -54,7 +54,7 @@ class Server:
         return page_data
 
     def get_hyper(self, page: int = 1, page_size: int = 10) -> dict:
-        """
+        """Hypermedia pagination method return
         """
         start_index = (page - 1) * page_size
         end_index = start_index + page_size
