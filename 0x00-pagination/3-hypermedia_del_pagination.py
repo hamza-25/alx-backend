@@ -52,7 +52,7 @@ class Server:
         next_index = min(index + page_size, dataset_length)
         return {
             'index': index,
-            'next_index': next_index,
+            'data': self.dataset()[index:next_index],
             'page_size': page_size,
-            'data': self.dataset()[index:next_index]
+            'next_index': next_index,
         }
