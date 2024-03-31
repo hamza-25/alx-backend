@@ -16,6 +16,7 @@ class Server:
     def __init__(self):
         self.__dataset = None
         self.__indexed_dataset = None
+        self.total_items = len(self.indexed_dataset())
 
     def dataset(self) -> List[List]:
         """Cached dataset
@@ -49,7 +50,15 @@ class Server:
         if index is None:
             index = 0
 
-        next_index = min(index + page_size, dataset_length)
+        count = 0
+        for i in self.indexed_dataset().keys():
+            if i >= index and count < page_size:
+                count += 1
+                continue
+            if page_size == count:
+                next_index = i
+                break
+
         return {
             'index': index,
             'data': self.dataset()[index:next_index],
