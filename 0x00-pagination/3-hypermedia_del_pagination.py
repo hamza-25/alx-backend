@@ -51,8 +51,10 @@ class Server:
             index = 0
 
         count = 0
-        for i in self.indexed_dataset().keys():
+        data = []
+        for i, item in self.indexed_dataset().items():
             if i >= index and count < page_size:
+                data.append(item)
                 count += 1
                 continue
             if page_size == count:
@@ -61,7 +63,7 @@ class Server:
 
         return {
             'index': index,
-            'data': self.dataset()[index:next_index],
+            'data': data,
             'page_size': page_size,
             'next_index': next_index,
         }
