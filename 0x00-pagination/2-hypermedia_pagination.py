@@ -3,10 +3,10 @@
 """
 import csv
 import math
-from typing import List, Union, Optional
+from typing import List, Union, Optional, Tuple, Dict
 
 
-def index_range(page: int, page_size: int) -> tuple[int, int]:
+def index_range(page: int, page_size: int) -> Tuple[int, int]:
     """function named index_range that
     takes two integer arguments page and page_size
     """
@@ -53,7 +53,7 @@ class Server:
             return []
         return page_data
 
-    def get_hyper(self, page: int = 1, page_size: int = 10) -> dict:
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict:
         """Hypermedia pagination method return
         """
         start_index = (page - 1) * page_size
