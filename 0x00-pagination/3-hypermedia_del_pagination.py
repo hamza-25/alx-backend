@@ -44,47 +44,26 @@ class Server:
                         page_size: int = 10) -> Dict:
         """Deletion-resilient hypermedia pagination
         """
-        # dataset_length = len(self.dataset())
-        # assert index is not None or 0 <= index < dataset_length
+        dataset_length = len(self.dataset())
+        assert index is None or 0 <= index < dataset_length
 
-        # if index is None:
-        #     index = 0
+        if index is None:
+            index = 0
 
-        # count = 0
-        # data = []
-        # for i, item in self.indexed_dataset().items():
-        #     if i >= index and count < page_size:
-        #         data.append(item)
-        #         count += 1
-        #         continue
-        #     if page_size == count:
-        #         next_index = i
-        #         break
-
-        # return {
-        #     'index': index,
-        #     'data': data,
-        #     'page_size': page_size,
-        #     'next_index': next_index,
-        # }
-        data = self.indexed_dataset()
-        assert index is not None and index >= 0 and index <= max(data.keys())
-        page_data = []
-        data_count = 0
-        next_index = None
-        start = index if index else 0
-        for i, item in data.items():
-            if i >= start and data_count < page_size:
-                page_data.append(item)
-                data_count += 1
+        count = 0
+        data = []
+        for i, item in self.indexed_dataset().items():
+            if i >= index and count < page_size:
+                data.append(item)
+                count += 1
                 continue
-            if data_count == page_size:
+            if page_size == count:
                 next_index = i
                 break
-        page_info = {
+
+        return {
             'index': index,
+            'data': data,
+            'page_size': page_size,
             'next_index': next_index,
-            'page_size': len(page_data),
-            'data': page_data,
         }
-        return page_info
