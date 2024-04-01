@@ -44,8 +44,8 @@ class Server:
                         page_size: int = 10) -> Dict:
         """Deletion-resilient hypermedia pagination
         """
-        dataset_length = len(self.dataset())
-        assert index is not None and 0 <= index <= dataset_length
+        dataset_length = len(self.indexed_dataset())
+        assert index is None and 0 <= index < dataset_length
 
         if index is None:
             index = 0
@@ -63,8 +63,8 @@ class Server:
 
         return {
             'index': index,
+            'next_index': next_index,
+            'page_size': page_size,
             'data': data,
             # 'page_size': len(data),
-            'page_size': page_size,
-            'next_index': next_index,
         }
