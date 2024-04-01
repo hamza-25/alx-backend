@@ -45,7 +45,7 @@ class Server:
         """Deletion-resilient hypermedia pagination
         """
         dataset_length = len(self.dataset())
-        assert index is None or 0 <= index < dataset_length
+        assert index is not None and 0 <= index < dataset_length
 
         if index is None:
             index = 0
