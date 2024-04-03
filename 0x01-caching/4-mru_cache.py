@@ -21,16 +21,16 @@ class MRUCache(BaseCaching):
             return
         if key not in self.cache_data.keys():
             if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-                first_item_key, _ = list((self.cache_data.items()))[-1]
-                print(f'DISCARD: {first_item_key}')
-                del self.cache_data[first_item_key]
+                mru_key, _ = self.cache_data.popitem(False)
+                print("DISCARD:", mru_key)
             self.cache_data[key] = item
+            self.cache_data.move_to_end(key, last=False)
         else:
             self.cache_data[key] = item
 
     def get(self, key):
         """get key from cache_data dict
         """
-        if key is None or key not in self.cache_data.keys():
-            return None
-        return self.cache_data.get(key)
+        if key is not None and key in self.cache_data:
+            self.cache_data.move_to_end(key, last=False)
+        return self.cache_data.get(key, None)
