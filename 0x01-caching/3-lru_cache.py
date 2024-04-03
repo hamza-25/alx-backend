@@ -1,8 +1,9 @@
-#!/usr/bin/python3
+# !/usr/bin/python3
 """Define LRU Cache Module
 """
 from collections import OrderedDict
-BaseCaching = __import__('base_caching').BaseCaching
+# BaseCaching = __import__('base_caching').BaseCaching
+from base_caching import BaseCaching
 
 
 class LRUCache(BaseCaching):
@@ -21,16 +22,16 @@ class LRUCache(BaseCaching):
             return
         if key not in self.cache_data:
             if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-                first_item_key, _ = list(self.cache_data.items())[0]
-                print(f'DISCARD: {first_item_key}')
-                del self.cache_data[first_item_key]
+                lru_key, _ = self.cache_data.popitem(True)
+                print("DISCARD:", lru_key)
             self.cache_data[key] = item
+            self.cache_data.move_to_end(key, last=False)
         else:
             self.cache_data[key] = item
 
     def get(self, key):
         """get key from cache_data dict
         """
-        if key is None or key not in self.cache_data.keys():
-            return None
-        return self.cache_data.get(key)
+        if key is not None and key in self.cache_data:
+            self.cache_data.move_to_end(key, last=False)
+        return self.cache_data.get(key, None)
