@@ -1,12 +1,12 @@
 #!/usr/bin/python3
-"""Define LRU Cache Module
+"""Define MRU Cache Module
 """
 from collections import OrderedDict
 BaseCaching = __import__('base_caching').BaseCaching
 
 
-class LRUCache(BaseCaching):
-    """Define BasicCache with methods
+class MRUCache(BaseCaching):
+    """Define MRUCache with methods
     """
     def __init__(self):
         """init method that initializing from BaseCaching
@@ -19,9 +19,9 @@ class LRUCache(BaseCaching):
         """
         if key is None or item is None:
             return
-        if key not in self.cache_data:
+        if key not in self.cache_data.keys():
             if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-                first_item_key, _ = list(self.cache_data.items())[0]
+                first_item_key, _ = list((self.cache_data.items()))[-1]
                 print(f'DISCARD: {first_item_key}')
                 del self.cache_data[first_item_key]
             self.cache_data[key] = item
