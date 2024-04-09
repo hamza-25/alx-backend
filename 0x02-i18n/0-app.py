@@ -10,7 +10,7 @@ def home()-> str:
     """home route for app application"""
     title = 'Welcome to Holberton'
     h1 = 'Hello world'
-    return render_template('index.html', title=title, h1=h1)
+    return render_template('0-index.html', title=title, h1=h1)
 
 
 if __name__ == "__main__":
