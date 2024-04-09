@@ -1,8 +1,16 @@
 #!/usr/bin/env python3
 """app flask Module"""
 from flask import Flask, render_template
+from flask_babel import Babel
+
+
+class Config:
+    """class Config for translation"""
+    LANGUAGES = ["en", "fr"]
+
 
 app = Flask(__name__)
+babel = Babel(app, locale_selector=Config.LANGUAGES)
 
 
 @app.route('/')
