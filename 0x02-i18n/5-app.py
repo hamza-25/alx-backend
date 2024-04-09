@@ -24,19 +24,10 @@ users = {
 }
 
 
-@babel.localeselector
-def get_locale() -> str:
-    """return best match with our supported languages"""
-    locale = request.args.get('locale')
-    if locale:
-        return locale
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
-
-
 def get_user() -> Union[Dict, None]:
     """get user from query pram"""
     id = request.args.get('login_as')
-    if id in users:
+    if id:
         return users.get(int(id))
     return None
 
@@ -48,10 +39,19 @@ def before_request() -> None:
     g.user = user
 
 
+@babel.localeselector
+def get_locale() -> str:
+    """return best match with our supported languages"""
+    locale = request.args.get('locale', '')
+    if locale:
+        return locale
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
+
+
 @app.route('/')
 def home() -> str:
     """home route for app application"""
-    return render_template('3-index.html')
+    return render_template('5-index.html')
 
 
 if __name__ == "__main__":
