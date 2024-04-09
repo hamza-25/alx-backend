@@ -6,10 +6,8 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def home()-> str:
+def home() -> str:
     """home route for app application"""
-    # title = 'Welcome to Holberton'
-    # h1 = 'Hello world'
     return render_template('0-index.html')
 
 
