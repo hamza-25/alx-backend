@@ -1,27 +1,3 @@
-// import { createClient } from "redis";
-
-// const client = createClient();
-
-// client.on('error', (error) => {
-//     console.error(`Redis client error: ${error}`);
-// });
-
-// client.on('connect', () => {
-//     console.log('Redis client connected to the server');
-// });
-
-// function setNewSchool(schoolName, value){
-//     client.set(schoolName, value);
-// }
-
-// function displaySchoolValue(schoolName){
-//     const value = client.get(schoolName, redis.print);
-//     console.log(value);
-// }
-
-// displaySchoolValue('Holberton');
-// setNewSchool('HolbertonSanFrancisco', '100');
-// displaySchoolValue('HolbertonSanFrancisco');
 import { createClient } from "redis";
 
 const client = createClient();
@@ -56,4 +32,3 @@ function displaySchoolValue(schoolName) {
 displaySchoolValue('Holberton');
 setNewSchool('HolbertonSanFrancisco', '100');
 displaySchoolValue('HolbertonSanFrancisco');
-
