@@ -1,3 +1,4 @@
+const kue = require('kue');
 const jobs = [
     {
       phoneNumber: '4153518780',
@@ -44,3 +45,21 @@ const jobs = [
       message: 'This is the code 4321 to verify your account'
     }
   ];
+
+const queue = kue.createQueue();
+
+jobs.forEach((obj) => {
+  const job = queue.create('push_notification_code_2', {
+    phoneNumber: obj.phoneNumber,
+    message: obj.message,
+  });
+  
+  job.on('enqueue', () => {
+    console.log(`Notification job created: ${job.id}`);
+  }).on('complete', () => {
+    console.log(`Notification job ${job.id} completed`);
+  }).on('failed', () => {
+    console.log(`Notification job ${job.id} failed: ERROR`);
+  });
+  job.save();
+});
